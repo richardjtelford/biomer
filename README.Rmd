@@ -1,0 +1,48 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# biomer
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of biomer is to support biomisation of pollen data.
+
+## Installation
+
+You can install the development version of biomer like so:
+
+``` r
+# install.package("pak") # if pak not already installed.
+pak::pak("richardjtelford/biomer")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(biomer)
+biomes <- biomer(
+  pollen_percent = pollen_percent,
+  meta_cols = c("Site", "Long", "Lat", "Elev"),
+  pollen_weights_threshold = pollen_weights_threshold,
+  pollen_pft = pollen_pft,
+  pft_biome = pft_biome
+) 
+biomes
+
+top_biome(biomes)
+```
