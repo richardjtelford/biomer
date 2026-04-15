@@ -30,7 +30,7 @@ biomes <- biomer(
   pollen_weights_threshold = pollen_weights_threshold,
   pollen_pft = pollen_pft,
   pft_biome = pft_biome
-) 
+)
 #> Warning in check_pft(pollen_pft, pft_biome): Taxa not assigned to any pft:
 #> Humulus, Plantaginaceae, Polygala, Sanguisorba, Urtica, Valerianaceae
 biomes

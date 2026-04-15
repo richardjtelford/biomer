@@ -41,7 +41,8 @@ The first few columns are metadata (Site, Latitude, Longitude, Elevation)
 which may be an error).
 Pollen percent data are in the remaining columns.
 
-`pollen_weights_threshold` contain the weights and thresholds for each taxa used for biomisation.
+`pollen_weights_threshold` contain the weights and thresholds for each taxa
+used for biomisation.
 and threshold for the threshold that must be reached before the species can
 be assumed to be locally present.
 \describe{
