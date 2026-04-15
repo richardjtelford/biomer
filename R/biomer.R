@@ -92,10 +92,13 @@ biomer <- function(pollen_percent, meta_cols, pollen_weights_threshold,
   biome_scores
 }
 
+#### Helper functions ####
+
 check_pollen_weights_threshold <- function(pollen_percent,
                                            pollen_weights_threshold,
                                            default_threshold) {
   pollen_names <- unique(pollen_percent$taxa)
+  # create pollen_weights_threshold if missing
   if (missing(pollen_weights_threshold)) {
     pollen_weights_threshold <- data.frame(
       taxa = pollen_names,
@@ -103,6 +106,17 @@ check_pollen_weights_threshold <- function(pollen_percent,
       threshold = default_threshold
     )
   }
+
+  # check column names
+  correct_names <- c("taxa", "weight", "threshold")
+  if (all(!correct_names %in% colnames(pollen_weights_threshold))) {
+    stop(
+      "pollen_weights_threshold must have columns ",
+      correct_names, " any additional columns are ignored."
+    )
+  }
+
+
   # add missing weights/thresholds
   if (any(!pollen_names %in% pollen_weights_threshold$taxa)) {
     pollen_weights_threshold <- rbind(
@@ -129,6 +143,8 @@ check_meta_cols <- function(pollen_percent, meta_cols) {
 # check pollen
 
 check_pollen <- function(pollen_percent, pollen_pft) {
+  # check pollen_pft
+
   # check all pollen taxa in pollen_pft
   pollen_names <- unique(pollen_percent$taxa)
   matches <- pollen_names %in% pollen_pft$taxa
@@ -143,6 +159,17 @@ check_pollen <- function(pollen_percent, pollen_pft) {
 
 # check pollen_pft pft_biome
 check_pft <- function(pollen_pft, pft_biome) {
+  # check pollen_pft column names
+  if (colnames(pollen_pft)[1] != "taxa") {
+    stop("First column of pollen_pft must be called taxa (and contain the names of the taxa).")
+  }
+
+  # check pft_biome column names
+  if (colnames(pft_biome)[1] != "biome") {
+    stop("First column of pft_biome must be called biome (and contain the names of the biomes).")
+  }
+
+
   matches <- names(pollen_pft[, -1]) %in% names(pft_biome[, -1])
   if (!all(matches)) {
     stop(
@@ -188,8 +215,6 @@ check_pft <- function(pollen_pft, pft_biome) {
       paste(colnames(pft_biome)[-1][n_pft == 0], collapse = ", ")
     )
   }
-
-
 }
 
 # threshold & weight pollen
