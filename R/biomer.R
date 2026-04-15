@@ -162,13 +162,34 @@ check_pft <- function(pollen_pft, pft_biome) {
   }
 
   # check taxa in pollen_pft not assigned to any pft
-  n_pft <- rowSums(pollen_pft[, -1])
-  if (any(n_pft == 0)) {
+  n_pollen <- rowSums(pollen_pft[, -1])
+  if (any(n_pollen == 0)) {
     warning(
       "Taxa not assigned to any pft: ",
-      paste(pollen_pft[n_pft == 0, "taxa"], collapse = ", ")
+      paste(pollen_pft[n_pollen == 0, "taxa"], collapse = ", ")
     )
   }
+
+  # check biomes with no pft assigned
+  n_biome <- rowSums(pft_biome[, -1])
+  if (any(n_biome == 0)) {
+    warning(
+      "No pft assigned to biome: ",
+      paste(pft_biome[n_biome == 0, "biome"], collapse = ", ")
+    )
+  }
+
+
+  # check pft not assigned to any biomes
+  n_pft <- colSums(pft_biome[, -1])
+  if (any(n_pft == 0)) {
+    warning(
+      "pft not assigned to any biome: ",
+      paste(colnames(pft_biome)[-1][n_pft == 0], collapse = ", ")
+    )
+  }
+
+
 }
 
 # threshold & weight pollen
