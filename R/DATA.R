@@ -4,9 +4,7 @@
 #' biomisation, obtained from Cao and Tian (2021)
 #' @details
 #' `pollen_percent` contains modern pollen surface sample data in wide format.
-#' The first few columns are metadata (Site, Latitude, Longitude, Elevation)
-#' (NB Latitude, Longitude and Elevation are identical for all Sites,
-#' which may be an error).
+#' The first few columns are metadata (Site, Latitude, Longitude, Elevation).
 #' Pollen percent data are in the remaining columns.
 #'
 
