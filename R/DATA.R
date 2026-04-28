@@ -13,7 +13,6 @@
 "pollen_percent"
 
 
-
 #' @details
 #' `pollen_weights_threshold` contain the weights and thresholds for each taxa
 #' used for biomisation.
@@ -28,7 +27,6 @@
 #' }
 #' @rdname example_biome_data
 "pollen_weights_threshold"
-
 
 
 #' @details
