@@ -2,8 +2,12 @@
 # convert to plant functional type
 # calculate biome scores
 #' Reconstruct biome from pollen data
-#' @param pollen_percent data frame of pollen percent data in wide format.
-#' See object `pollen_percent` for an example of the expected format.
+#' @param pollen_percent data frame of pollen percent data in either wide format
+#' (if `wide` is TRUE), or long format (if `wide` is FALSE) with columns
+#' `meta_cols`, taxa, and percent.
+#' See object `pollen_percent` for an example of the expected wide format.
+#' @param wide logical, whether data are in long (one row per sample * species)
+#' or wide (one row per sample). Defaults to TRUE.
 #' @param meta_cols vector of column names from pollen percent that describe
 #' the sample rather than the pollen percent.
 #' @param pollen_weights_threshold data frame of pollen threshold
@@ -40,13 +44,16 @@
 #' @export
 
 
-biomer <- function(pollen_percent, meta_cols, pollen_weights_threshold,
+biomer <- function(pollen_percent, wide = TRUE, meta_cols, pollen_weights_threshold,
                    pollen_pft, pft_biome, default_threshold = 0.5) {
-  # make pollen thin
+  # check meta_cols exist
   check_meta_cols(pollen_percent, meta_cols)
-
+  # make pollen thin
+  if (wide) {
+    pollen_percent <- pollen_percent |>
+      pivot_longer(cols = -meta_cols, names_to = "taxa", values_to = "percent")
+  }
   pollen_percent <- pollen_percent |>
-    pivot_longer(cols = -meta_cols, names_to = "taxa", values_to = "percent") |>
     group_by(across(all_of(meta_cols)))
 
   # check pollen_weights_threshold
