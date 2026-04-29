@@ -54,6 +54,7 @@ Defaults to 0.5.}
 Reconstruct biome from pollen data
 }
 \examples{
+# with wide data
 biomer(
   pollen_percent = pollen_percent,
   meta_cols = c("Site", "Long", "Lat", "Elev"),
@@ -61,6 +62,21 @@ biomer(
   pollen_pft = pollen_pft,
   pft_biome = pft_biome
 )
+# with long data
+pollen_percent_long <- pollen_percent |>
+  tidyr::pivot_longer(-c("Site", "Long", "Lat", "Elev"),
+   names_to = "taxa",
+   values_to = "percent"
+)
+biomer(
+  pollen_percent = pollen_percent_long,
+  wide = FALSE,
+  meta_cols = c("Site", "Long", "Lat", "Elev"),
+  pollen_weights_threshold = pollen_weights_threshold,
+  pollen_pft = pollen_pft,
+  pft_biome = pft_biome
+)
+
 }
 \references{
 Prentice et al. (1996).

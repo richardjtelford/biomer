@@ -34,6 +34,7 @@
 #' @importFrom dplyr mutate left_join join_by across all_of group_by
 #' @references Prentice et al. (1996).
 #' @examples
+#' # with wide data
 #' biomer(
 #'   pollen_percent = pollen_percent,
 #'   meta_cols = c("Site", "Long", "Lat", "Elev"),
@@ -41,6 +42,21 @@
 #'   pollen_pft = pollen_pft,
 #'   pft_biome = pft_biome
 #' )
+#' # with long data
+#' pollen_percent_long <- pollen_percent |>
+#'   tidyr::pivot_longer(-c("Site", "Long", "Lat", "Elev"),
+#'    names_to = "taxa",
+#'    values_to = "percent"
+#' )
+#' biomer(
+#'   pollen_percent = pollen_percent_long,
+#'   wide = FALSE,
+#'   meta_cols = c("Site", "Long", "Lat", "Elev"),
+#'   pollen_weights_threshold = pollen_weights_threshold,
+#'   pollen_pft = pollen_pft,
+#'   pft_biome = pft_biome
+#' )
+#'
 #' @export
 
 
