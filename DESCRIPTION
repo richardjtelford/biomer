@@ -1,12 +1,13 @@
 Package: biomer
 Type: Package
 Title: Biomisation of Pollen Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(
       "Richard", "Telford",
       email = "richard.telford@uib.no",
-      role = c("aut", "cre")
+      role = c("aut", "cre"),
+      comment = c(ORCID = "https://orcid.org/0000-0001-9826-3076")
     )
   )
 Description: Reconstruction the biome using the plant function type of pollen data following Prentice et al (1996).
@@ -14,7 +15,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1)
 RoxygenNote: 7.3.3
 Imports: 
     dplyr,
